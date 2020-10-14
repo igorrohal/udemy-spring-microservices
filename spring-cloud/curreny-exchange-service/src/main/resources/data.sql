@@ -1,0 +1,1 @@
+insert into exchange_rate values(1000, 15.0, 'USD', 'EUR');
