@@ -1,0 +1,3 @@
+[submodule "spring-cloud/git-localconfig-repo"]
+	path = spring-cloud/git-localconfig-repo
+	url = https://github.com/igorrohal/udemy-git-localconfig-repo.git
