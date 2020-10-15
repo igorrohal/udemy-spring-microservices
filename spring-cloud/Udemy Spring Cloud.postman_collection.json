@@ -44,7 +44,7 @@
 			"response": []
 		},
 		{
-			"name": "Currency Conversion",
+			"name": "Currency Conversion with RestTemplate",
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -72,6 +72,46 @@
 					"port": "8100",
 					"path": [
 						"currency-converter",
+						"from",
+						"USD",
+						"to",
+						"EUR",
+						"quantity",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Currency Conversion with Feign",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8100/currency-converter-feign/from/USD/to/EUR/quantity/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"currency-converter-feign",
 						"from",
 						"USD",
 						"to",
