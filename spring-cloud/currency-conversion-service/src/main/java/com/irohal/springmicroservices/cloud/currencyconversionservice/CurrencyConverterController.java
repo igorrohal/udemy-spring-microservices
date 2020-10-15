@@ -15,10 +15,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/currency-converter")
 public class CurrencyConverterController {
 
-    @GetMapping("/from/{from}/to/{to}/quantity/{quantity}")
+    @Autowired
+    private CurrencyExchangeServiceProxy currencyExchangeProxy;
+
+    @GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
+    public CurrencyConversionBean convertWithFeign(
+            @PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
+        final CurrencyConversionBean currencyConversionBean = currencyExchangeProxy.exchangeRate(from, to);
+        currencyConversionBean.setQuantity(quantity);
+        currencyConversionBean.setTotalCalculatedAmount(quantity.multiply(currencyConversionBean.getConversionMultiple()));
+        return currencyConversionBean;
+    }
+
+    @GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversionBean convert(
             @PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
         final Map<String, String> uriVariables = new HashMap<>();
