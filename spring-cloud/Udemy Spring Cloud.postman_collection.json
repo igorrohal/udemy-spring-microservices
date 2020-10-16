@@ -44,6 +44,45 @@
 			"response": []
 		},
 		{
+			"name": "Get Exchange Rate via Zuul",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/EUR",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"currency-exchange-service",
+						"currency-exchange",
+						"from",
+						"USD",
+						"to",
+						"EUR"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Currency Conversion with RestTemplate",
 			"request": {
 				"auth": {
@@ -111,6 +150,47 @@
 					],
 					"port": "8100",
 					"path": [
+						"currency-converter-feign",
+						"from",
+						"USD",
+						"to",
+						"EUR",
+						"quantity",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Currency Conversion via Zuul",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8765/currency-conversion-service/currency-converter-feign/from/USD/to/EUR/quantity/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"currency-conversion-service",
 						"currency-converter-feign",
 						"from",
 						"USD",
