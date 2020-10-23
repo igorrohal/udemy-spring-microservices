@@ -1,12 +1,11 @@
 package com.irohal.springmicroservices.cloud.currencyconversionservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.Response;
-import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +16,8 @@ import java.util.Map;
 @RestController
 public class CurrencyConverterController {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private CurrencyExchangeServiceProxy currencyExchangeProxy;
 
@@ -26,6 +27,9 @@ public class CurrencyConverterController {
         final CurrencyConversionBean currencyConversionBean = currencyExchangeProxy.exchangeRate(from, to);
         currencyConversionBean.setQuantity(quantity);
         currencyConversionBean.setTotalCalculatedAmount(quantity.multiply(currencyConversionBean.getConversionMultiple()));
+
+        logger.info("{}", currencyConversionBean);
+
         return currencyConversionBean;
     }
 
@@ -39,6 +43,8 @@ public class CurrencyConverterController {
         final ResponseEntity<CurrencyConversionBean> response =
                 new RestTemplate().getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}",
                         CurrencyConversionBean.class, uriVariables);
+
+        logger.info("{}", response);
 
         final CurrencyConversionBean currencyConversionBean = response.getBody();
         currencyConversionBean.setQuantity(quantity);
